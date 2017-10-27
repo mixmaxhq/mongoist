@@ -1,5 +1,7 @@
 1.4.2 / 2017-10-11
 ==================
+* 1.4.4 Allow mongoist databases in constructor
+
 
   * 1.4.2
   * fix: always create a non undefined options field
