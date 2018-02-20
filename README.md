@@ -6,6 +6,7 @@ Mongoist driver is heavily inspired by mongojs.
 
 [![Build Status](https://travis-ci.org/saintedlama/mongoist.svg?branch=master)](https://travis-ci.org/saintedlama/mongoist)
 [![Coverage Status](https://coveralls.io/repos/github/saintedlama/mongoist/badge.svg?branch=master)](https://coveralls.io/github/saintedlama/mongoist?branch=master)
+[![mongoist analyzed by Codellama.io](https://app.codellama.io/api/badges/5a0439591b4c363a0f9427e6/31ad4e758e5c06b9e1d9d7e0d74cb475)](https://app.codellama.io/repositories/5a0439591b4c363a0f9427e6)
 
 ## Motivation
 
@@ -73,7 +74,7 @@ async function findDocuments() {
 }
 
 // We need to call the async function this way since top level await keyword is not allowed in JavaScript
-findDocuments().then(() => console.log('Done querying mongodb')));
+findDocuments().then(() => console.log('Done querying mongodb'));
 
 ```
 
@@ -194,6 +195,22 @@ For more detailed information about replica sets see [the mongo replication docs
 ## API
 
 This API documentation is a work in progress.
+
+### Exposed Prototypes
+
+Mongoist exposes the prototypes of `Database`, `Collection`, `Cursor` and `Bulk`
+to provide basic support for mocking, stubbing data access in tests.
+
+```js
+const mongoist = require('mongoist');
+
+// Override collection find behavior to always return { foo: 'bar' }
+mongoist.Collection.find = function() {
+  return [
+    { foo: 'bar' }
+  ]
+}
+```
 
 ### Collection
 
