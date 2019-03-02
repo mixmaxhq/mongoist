@@ -2,6 +2,80 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/saintedlama/mongoist/compare/v1.7.4...v2.0.0) (2018-12-06)
+
+
+### Bug Fixes
+
+* handling of mongodb+srv protocol ([e267db5](https://github.com/saintedlama/mongoist/commit/e267db5))
+* resolve deprecation warnings ([#21](https://github.com/saintedlama/mongoist/issues/21)) ([ca4f5d5](https://github.com/saintedlama/mongoist/commit/ca4f5d5))
+
+
+### Features
+
+* use mongodb 3.1 driver, fix +srv handling ([f159a38](https://github.com/saintedlama/mongoist/commit/f159a38))
+
+
+### BREAKING CHANGES
+
+* by using mongodb 3.1 driver specifying a port in the connection string is required
+
+
+
+<a name="1.7.4"></a>
+## [1.7.4](https://github.com/saintedlama/mongoist/compare/v1.7.3...v1.7.4) (2018-06-04)
+
+
+
+<a name="1.7.3"></a>
+## [1.7.3](https://github.com/saintedlama/mongoist/compare/v1.7.2...v1.7.3) (2018-05-27)
+
+
+### Bug Fixes
+
+* update vulnerable dependencies ([cd473a2](https://github.com/saintedlama/mongoist/commit/cd473a2))
+
+
+
+<a name="1.7.2"></a>
+## [1.7.2](https://github.com/saintedlama/mongoist/compare/v1.7.1...v1.7.2) (2018-03-14)
+
+
+### Bug Fixes
+
+* implement feature detection to prevent mongojs connections to break projection logic in mongoist ([ee5c9e1](https://github.com/saintedlama/mongoist/commit/ee5c9e1))
+
+
+
+<a name="1.7.1"></a>
+## [1.7.1](https://github.com/saintedlama/mongoist/compare/v1.7.0...v1.7.1) (2018-03-05)
+
+
+### Bug Fixes
+
+* support projection in findAsCursor ([1ef60c8](https://github.com/saintedlama/mongoist/commit/1ef60c8))
+
+
+
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/saintedlama/mongoist/compare/v1.6.0...v1.7.0) (2018-03-01)
+
+
+### Bug Fixes
+
+* apply minor updates ([8f1efcc](https://github.com/saintedlama/mongoist/commit/8f1efcc))
+* catch promise rejections in close and emit error output using debug ([b79ffe8](https://github.com/saintedlama/mongoist/commit/b79ffe8))
+* close all database connections in tests ([89bc655](https://github.com/saintedlama/mongoist/commit/89bc655))
+* pass force parameter to client close ([1153fe9](https://github.com/saintedlama/mongoist/commit/1153fe9))
+
+
+### Features
+
+* update mongodb driver to version 3 ([f154952](https://github.com/saintedlama/mongoist/commit/f154952))
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/saintedlama/mongoist/compare/v1.5.1...v1.6.0) (2018-02-20)
 

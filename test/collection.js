@@ -2,10 +2,10 @@ const { expect } = require('chai');
 const dropMongoDbCollections = require('drop-mongodb-collections');
 const mongoist = require('../');
 
-const connectionString = 'mongodb://localhost/test';
+const connectionString = 'mongodb://localhost:27017/test';
 
 describe('collection', function() {
-  this.timeout(5000);
+  this.timeout(10000);
 
   let db;
 
@@ -23,6 +23,8 @@ describe('collection', function() {
       name: 'Lapras', type: 'water', level: 12,
     }]);
   });
+
+  afterEach(() => db.close());
 
   it('should insert a single document', async() => {
     const doc = await db.b.insert({ foo: 'bar' });
@@ -94,7 +96,7 @@ describe('collection', function() {
   });
 
   it('should find one document with projection', async() => {
-    const squirtle = await db.a.findOne({ name: 'Squirtle' }, { type: 1});
+    const squirtle = await db.a.findOne({ name: 'Squirtle' }, { type: 1 });
 
     expect(squirtle.name).to.not.exist;
     expect(squirtle.type).to.equal('water');
@@ -309,7 +311,7 @@ describe('collection', function() {
     mockDb.connection = {
       collection: async () => {
         return {
-          insert: async (docs, options) => {
+          insertOne: async (docs, options) => {
             expect(options).to.deep.equal({ writeConcern: { w: 1 }, ordered: true });
             options.foo = 'bar';
           }

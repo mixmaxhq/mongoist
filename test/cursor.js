@@ -4,10 +4,10 @@ const { Writable } = require('stream');
 const dropMongoDbCollections = require('drop-mongodb-collections');
 const mongoist = require('../');
 
-const connectionString = 'mongodb://localhost/test';
+const connectionString = 'mongodb://localhost:27017/test';
 
 describe('cursor', function() {
-  this.timeout(5000);
+  this.timeout(10000);
 
   let db;
 
@@ -25,6 +25,8 @@ describe('cursor', function() {
       name: 'Lapras', type: 'water', level: 12,
     }]);
   });
+
+  afterEach(() => db.close());
 
   it('should return cursor count', async() => {
     const count = await db.a.findAsCursor({})
@@ -106,15 +108,15 @@ describe('cursor', function() {
   it('should rewind a cursor', async() => {
     const cursor = db.a.findAsCursor().sort({name: 1});
 
-    const obj1 = await cursor.next(); 
+    const obj1 = await cursor.next();
     expect(obj1.name).to.equal('Charmander');
 
-    const obj2 = await cursor.next(); 
+    const obj2 = await cursor.next();
     expect(obj2.name).to.equal('Lapras');
-    
+
     await cursor.rewind();
 
-    const obj3 = await cursor.next(); 
+    const obj3 = await cursor.next();
     expect(obj3.name).to.equal('Charmander');
   });
 
@@ -127,7 +129,7 @@ describe('cursor', function() {
 
       i++;
     });
-    
+
     expect(i).to.equal(4);
   });
 
@@ -135,8 +137,19 @@ describe('cursor', function() {
     const names = await db.a.findAsCursor()
       .sort({ name: 1})
       .map((pkm) => pkm.name);
-    
+
     expect(names).to.deep.equal(['Charmander', 'Lapras', 'Squirtle', 'Starmie']);
+  });
+
+  it('should pass projections to findAsCursor', async () => {
+    const docs = await db.a.findAsCursor({}, { name: true, _id: false })
+      .toArray();
+
+    expect(docs).to.have.length(4);
+    expect(docs).to.deep.include({ name: 'Charmander' });
+    expect(docs).to.deep.include({ name: 'Lapras' });
+    expect(docs).to.deep.include({ name: 'Squirtle' });
+    expect(docs).to.deep.include({ name: 'Starmie' });
   });
 
   it('should return null for next if the cursor was closed', async() => {
@@ -178,10 +191,10 @@ describe('cursor', function() {
   it('should stream a cursor', async () => {
     const cursor = db.a.findAsCursor();
     let runs = 0
-  
+
     const loop = () => {
       let doc;
-  
+
       while ((doc = cursor.read()) !== null) {
 
         expect(doc.name).to.be.oneOf(['Squirtle', 'Starmie', 'Charmander', 'Lapras']);
@@ -189,10 +202,10 @@ describe('cursor', function() {
 
         runs++
       }
-  
+
       cursor.once('readable', loop);
     }
-  
+
     loop();
 
     return new Promise((resolve) => {
@@ -216,7 +229,15 @@ describe('cursor', function() {
           resolve();
         });
     });
-  })
+  });
+
+  it('should emit a close event when closed', async () => {
+    const cursor = db.a.findAsCursor();
+    return new Promise((resolve) => {
+      cursor.once('close', resolve);
+      cursor.close();
+    });
+  });
 });
 
 
