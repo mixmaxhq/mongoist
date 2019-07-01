@@ -1,5 +1,5 @@
 {
-  "name": "mongoist",
+  "name": "@mixmaxhq/mongoist",
   "version": "2.0.0",
   "description": "Mongodb driver inspired by mongojs built with async/await in mind",
   "main": "index.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/saintedlama/mongoist.git"
+    "url": "git+https://github.com/mixmaxhq/mongoist.git"
   },
   "keywords": [
     "mongodb",
@@ -28,9 +28,9 @@
   "author": "Christoph Walcher <christoph.walcher@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/saintedlama/mongoist/issues"
+    "url": "https://github.com/mixmaxhq/mongoist/issues"
   },
-  "homepage": "https://github.com/saintedlama/mongoist#readme",
+  "homepage": "https://github.com/mixmaxhq/mongoist#readme",
   "dependencies": {
     "debug": "^4.1.0",
     "mongodb": "^3.1.10"
